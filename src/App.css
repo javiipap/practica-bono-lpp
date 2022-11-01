@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+.main {
+  margin-top: 48px;
+}
+
+.wrap {
+  width: 90%;
+  margin: auto;
+}
+
+.grid {
+  display: grid;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  margin: auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.grid_wrapper {
+  position: relative;
+}
+
+.grid > div {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  height: 48px;
+}
+
+.player > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+}
+
+svg {
+  width: 40%;
+}
+
+.player [class^=arrow] {
+  cursor: pointer;
+}
+
+.arrow-up svg, .arrow-down svg {
+  transform: rotate(90deg);
+}
