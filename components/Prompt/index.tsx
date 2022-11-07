@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import { useEffect } from 'react';
-import { Position, CellType } from '../../types';
-import './styles.css';
+import { Position, CellType } from 'types';
+import styles from './styles.module.scss';
 
 export interface Props {
   position: Position;
@@ -53,7 +53,7 @@ export default function Prompt({ position, submit }: Props) {
 
   return (
     <div
-      className="prompt"
+      className={styles.prompt}
       style={{
         position: 'absolute',
         top: position[0] * 48 + 47,
@@ -67,7 +67,7 @@ export default function Prompt({ position, submit }: Props) {
     >
       <div>
         {slide === 0 ? (
-          <div className="">
+          <div>
             <h2>TIPO DE BUCLE</h2>
             <hr />
             <div
@@ -102,13 +102,13 @@ export default function Prompt({ position, submit }: Props) {
                   onChange={updateState}
                 />
               ) : (
-                <div className="options">
+                <div className={styles.options}>
                   {Object.values(CellType)
                     .filter((type) => type !== CellType.empty)
                     .map((val, i) => (
                       <p
                         className={
-                          state.loopCondition === val ? 'selected' : ''
+                          state.loopCondition === val ? styles.selected : ''
                         }
                         onClick={() =>
                           setState((prev) => ({ ...prev, loopCondition: val }))
@@ -121,7 +121,9 @@ export default function Prompt({ position, submit }: Props) {
                 </div>
               )}
               <div
-                className={`submit ${validateState() ? '' : 'disabled'}`}
+                className={`${styles.submit} ${
+                  validateState() ? '' : styles.disabled
+                }`}
                 onClick={() => validateState() && submit(state)}
               >
                 Guardar

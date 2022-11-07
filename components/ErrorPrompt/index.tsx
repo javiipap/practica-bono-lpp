@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
-import { ErrorContext } from '../../context';
-import { hashCode } from '../../utils';
+import { ErrorContext } from '@context/index';
+import { hashCode } from '@utils/index';
 import styles from './styles.module.scss';
 
 export interface Props {

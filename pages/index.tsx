@@ -1,11 +1,10 @@
 import React, { useContext, useRef, useState } from 'react';
-import './App.css';
-import Cell from './components/Cell';
-import Player from './components/Player';
-import Prompt, { State } from './components/Prompt';
-import { ErrorContext } from './context';
-import { ICell, RawData, CellType, Side, Position } from './types';
-import { sleep } from './utils';
+import Cell from '@components/Cell';
+import Player from '@components/Player';
+import Prompt, { State } from '@components/Prompt';
+import { ErrorContext } from '@context/index';
+import { ICell, RawData, CellType, Side, Position } from 'types/index';
+import { sleep } from '@utils/index';
 
 const mockData: RawData = {
   dimensions: {
@@ -43,7 +42,7 @@ const parseData = (data: RawData): ICell[] => {
   // Cargar las paredes
   for (const ob of data.obstacles) {
     parsed[getPos(ob.position)] = {
-      background: 'black',
+      background: 'black', // TODO
       type: ob.type,
     };
   }
@@ -51,7 +50,7 @@ const parseData = (data: RawData): ICell[] => {
   return parsed;
 };
 
-export default function App() {
+export default function Home() {
   const getPos = computePos(mockData.dimensions.cols, mockData.dimensions.rows);
   const cells = useRef(parseData(mockData));
   const [playerPosition, setPlayerPosition] = useState(mockData.start);
@@ -108,7 +107,7 @@ export default function App() {
 
     for (const pos of positions) {
       if (pos.type !== CellType.empty) {
-        if (pos.type === state.loopCondition) return; // TODO
+        if (pos.type === state.loopCondition) return;
         console.info(`Error al moverse de tipo: ${pos.type}`);
         switch (pos.type) {
           case CellType.wall:
