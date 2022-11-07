@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
+import { Position, Side } from '../../types';
 
 export interface Props {
   move: (side: Side) => () => void;
@@ -16,6 +17,7 @@ export default function Player({ move, position }: Props) {
         width: 144,
         display: 'grid',
         gridTemplate: '1fr 1fr 1fr / 1fr 1fr 1fr',
+        transition: '.2s linear',
       }}
       className="player"
     >

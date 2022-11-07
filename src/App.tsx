@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import './App.css';
 import Cell from './components/Cell';
 import Player from './components/Player';
 import Prompt, { State } from './components/Prompt';
+import { ErrorContext } from './context';
 import { ICell, RawData, CellType, Side, Position } from './types';
 import { sleep } from './utils';
 
@@ -56,6 +57,8 @@ export default function App() {
   const [playerPosition, setPlayerPosition] = useState(mockData.start);
   const [promptVisible, setPromptVisible] = useState(false);
 
+  const pushError = useContext(ErrorContext);
+
   const sideToMove = useRef<Side>(undefined);
 
   const nextPos = (side: Side, position: Position): Position | undefined => {
@@ -107,6 +110,21 @@ export default function App() {
       if (pos.type !== CellType.empty) {
         if (pos.type === state.loopCondition) return; // TODO
         console.info(`Error al moverse de tipo: ${pos.type}`);
+        switch (pos.type) {
+          case CellType.wall:
+            pushError('warning', 'Cuidado te has topado con una pared!!');
+            return;
+          case CellType.void:
+            pushError('error', 'Te has caído por un hueco!!');
+            break;
+          case CellType.outOfBound:
+            pushError('error', 'Te has salido del mapa!!');
+            break;
+          case CellType.enemy:
+            pushError('error', 'Cuidado con los enemigos!!');
+            break;
+        }
+        setPlayerPosition([0, 0]);
         return;
       }
 

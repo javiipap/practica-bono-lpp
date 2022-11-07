@@ -1,0 +1,35 @@
+.errorPrompt {
+  display: flex;
+  justify-content: center;
+  margin-block: 48px;
+  transition: 0.3s;
+  opacity: 1;
+  animation: appear 0.3s ease-in-out;
+
+  p {
+    border-radius: 4px;
+    padding: 24px;
+    font-size: large;
+
+    &.red {
+      background: rgb(249, 73, 73);
+    }
+
+    &.yellow {
+      background: rgb(249, 228, 73);
+    }
+  }
+
+  &.exit {
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

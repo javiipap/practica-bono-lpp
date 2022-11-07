@@ -50,10 +50,11 @@ svg {
   width: 40%;
 }
 
-.player [class^=arrow] {
+.player [class^='arrow'] {
   cursor: pointer;
 }
 
-.arrow-up svg, .arrow-down svg {
+.arrow-up svg,
+.arrow-down svg {
   transform: rotate(90deg);
 }

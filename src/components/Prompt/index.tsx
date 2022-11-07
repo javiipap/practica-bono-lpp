@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, KeyboardEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useEffect } from 'react';
 import { Position, CellType } from '../../types';
 import './styles.css';
@@ -39,15 +39,16 @@ export default function Prompt({ position, submit }: Props) {
     return false;
   };
 
-  const keyDownHandler = (e: globalThis.KeyboardEvent) => {
-    if (e.key === 'Escape') {
-      submit();
-    }
-  };
-
   useEffect(() => {
+    const keyDownHandler = (e: globalThis.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        submit();
+      }
+    };
+
     document.addEventListener('keydown', keyDownHandler);
     return () => document.removeEventListener('keydown', keyDownHandler);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -102,17 +103,21 @@ export default function Prompt({ position, submit }: Props) {
                 />
               ) : (
                 <div className="options">
-                  {Object.values(CellType).map((val, i) => (
-                    <p
-                      className={state.loopCondition === val ? 'selected' : ''}
-                      onClick={() =>
-                        setState((prev) => ({ ...prev, loopCondition: val }))
-                      }
-                      key={`stop_opt-${i}`}
-                    >
-                      {val}
-                    </p>
-                  ))}
+                  {Object.values(CellType)
+                    .filter((type) => type !== CellType.empty)
+                    .map((val, i) => (
+                      <p
+                        className={
+                          state.loopCondition === val ? 'selected' : ''
+                        }
+                        onClick={() =>
+                          setState((prev) => ({ ...prev, loopCondition: val }))
+                        }
+                        key={`stop_opt-${i}`}
+                      >
+                        {val}
+                      </p>
+                    ))}
                 </div>
               )}
               <div
