@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: monospace;
 }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100&display=swap');
 
 .main {
   margin-top: 48px;
@@ -36,4 +37,8 @@
   border-bottom: 1px solid black;
   border-right: 1px solid black;
   height: 48px;
+}
+
+body {
+  overflow: hidden;
 }
