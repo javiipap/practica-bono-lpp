@@ -4,7 +4,7 @@ import Player from '@components/Player';
 import Prompt, { State } from '@components/Prompt';
 import { ErrorContext } from '@context/index';
 import { ICell, RawData, CellType, Side, Position } from 'types/index';
-import { sleep } from '@utils/index';
+import { sleep, getBG } from '@utils/index';
 
 const computePos =
   (cols: number, rows: number) =>
@@ -19,17 +19,17 @@ const parseData = (data: RawData): ICell[] => {
   const parsed: ICell[] = [
     ...new Array(data.dimensions.cols * data.dimensions.rows),
   ].map(() => ({
-    background: 'white',
+    background: 'url("/empty.png")',
     type: CellType.empty,
   }));
 
-  parsed[getPos(data.start)].background = 'green';
-  parsed[getPos(data.end)].background = 'red';
+  parsed[getPos(data.start)].background = 'url("/empty.png")';
+  parsed[getPos(data.end)].background = 'url("/end.png")';
 
   // Cargar las paredes
   for (const ob of data.obstacles) {
     parsed[getPos(ob.position)] = {
-      background: 'black', // TODO: Cargar los distintos tipos de bloque
+      background: getBG(ob.type),
       type: ob.type,
     };
   }
@@ -97,10 +97,20 @@ export default function Grid({ data, onSuccess }: Props) {
         sideToMove.current,
         positions[positions.length - 1]?.position || playerPosition
       );
-      if (getTransitionState(position!) !== CellType.empty) break;
+
+      // Si se ha llegado a la condición de parada hacer break.
+      if (
+        state.type === 'while' &&
+        getTransitionState(position!) === state.loopCondition
+      )
+        break;
 
       positions.push({ type: getTransitionState(position!), position });
+
+      // Si se encuentra un bloque no vacío hacer break para evitar bucles infinitos.
+      if (getTransitionState(position!) !== CellType.empty) break;
     }
+
     for (const pos of positions) {
       if (pos.type !== CellType.empty) {
         if (pos.type === state.loopCondition) break;

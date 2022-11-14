@@ -104,7 +104,11 @@ export default function Prompt({ position, submit }: Props) {
               ) : (
                 <div className={styles.options}>
                   {Object.values(CellType)
-                    .filter((type) => type !== CellType.empty)
+                    .filter(
+                      (type) =>
+                        type !== CellType.void && type !== CellType.empty
+                    )
+
                     .map((val, i) => (
                       <p
                         className={
