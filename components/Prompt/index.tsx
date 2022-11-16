@@ -19,6 +19,7 @@ export default function Prompt({ position, submit }: Props) {
     type: '',
     loopCondition: '',
   });
+
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const updateState = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +43,9 @@ export default function Prompt({ position, submit }: Props) {
 
   useEffect(() => {
     const keyDownHandler = (e: globalThis.KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Enter' && validateState()) {
+        submit(state);
+      } else if (e.key === 'Escape') {
         submit();
       }
     };
@@ -50,7 +53,7 @@ export default function Prompt({ position, submit }: Props) {
     document.addEventListener('keydown', keyDownHandler);
     return () => document.removeEventListener('keydown', keyDownHandler);
     // eslint-disable-next-line
-  }, []);
+  }, [state]);
 
   return (
     <>
