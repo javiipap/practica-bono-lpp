@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { CellType, RawData } from 'types';
 import styles from '@styles/level.module.scss';
 import { useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import Success from '@components/Success';
 
 const mockData: { [key: string]: RawData } = {
@@ -176,11 +176,16 @@ export default function Level({ rawData, uid }: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       rawData: mockData[params!.uid as string],
       uid: params!.uid,
     },
   };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = Object.keys(mockData).map((k) => ({ params: { uid: k } }));
+  return { paths, fallback: 'blocking' };
 };
