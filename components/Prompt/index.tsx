@@ -97,6 +97,7 @@ export default function Prompt({ position, submit }: Props) {
                     value={state.loopCondition}
                     onChange={updateState}
                     autoFocus
+                    autoComplete="off"
                   />
                 ) : (
                   <div className={styles.options}>

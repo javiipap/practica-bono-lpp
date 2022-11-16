@@ -152,7 +152,6 @@ export default function Level({ rawData, uid }: Props) {
       ) : (
         ''
       )}
-
       <div className={styles.buttons}>
         {getNext(uid, true) ? (
           <Link href={`/levels/${getNext(uid, true)}`}>
