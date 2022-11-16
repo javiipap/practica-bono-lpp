@@ -9,15 +9,17 @@ export interface Props {
 export default function Success({ mount }: Props) {
   const [isMounted, setIsMounted] = useState(true);
   const el = useRef<HTMLDivElement>(null);
-  const handleMount = async () => {
-    await sleep(2000);
-    el.current?.classList.add(styles.exit);
-    await sleep(1000);
-    isMounted && el.current?.classList.remove(styles.exit);
-  };
 
   useEffect(() => {
+    const handleMount = async () => {
+      await sleep(2000);
+      el.current?.classList.add(styles.exit);
+      await sleep(1000);
+      isMounted && el.current?.classList.remove(styles.exit);
+    };
+
     if (mount) handleMount();
+    // eslint-disable-next-line
   }, [mount]);
 
   useEffect(() => {

@@ -15,28 +15,9 @@
   margin: auto;
 }
 
-.grid {
-  display: grid;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  margin: auto;
-}
-
 .center {
   display: flex;
   justify-content: center;
-}
-
-.grid_wrapper {
-  position: relative;
-}
-
-.grid > div {
-  width: 100%;
-  background: white;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  height: 48px;
 }
 
 body {

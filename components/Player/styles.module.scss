@@ -10,8 +10,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 48px;
-    height: 48px;
+    width: 47px;
+    height: 47px;
     cursor: pointer;
   }
 
@@ -23,8 +23,22 @@
     background: url('/machango.png');
   }
 
+  .arrow {
+    opacity: 0;
+    transition: 0.3s;
+    svg {
+      fill: white;
+    }
+  }
+
   .arrow_up svg,
   .arrow_down svg {
     transform: rotate(90deg);
+  }
+
+  &:hover {
+    .arrow {
+      opacity: 1;
+    }
   }
 }

@@ -5,6 +5,7 @@ import Prompt, { State } from '@components/Prompt';
 import { ErrorContext } from '@context/index';
 import { ICell, RawData, CellType, Side, Position } from 'types/index';
 import { sleep, getBG } from '@utils/index';
+import styles from './styles.module.scss';
 
 const computePos =
   (cols: number, rows: number) =>
@@ -148,9 +149,9 @@ export default function Grid({ data, onSuccess }: Props) {
     <div className="main">
       <div className="wrap">
         <div className="center">
-          <div className="grid_wrapper">
+          <div className={styles.grid_wrapper}>
             <div
-              className="grid"
+              className={styles.grid}
               style={{
                 gridTemplateColumns: `repeat(${data.dimensions.cols}, 48px)`,
               }}
