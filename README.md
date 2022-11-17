@@ -19,7 +19,3 @@ También se puede instalar dentro de docker:
 $ docker build . -t lpp
 $ docker run -d -p 3000:3000 lpp
 ```
-
-## TODO
-- Añadir textura borde exterior
-- Añadir página final tras acabar todos los niveles.

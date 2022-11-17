@@ -149,29 +149,31 @@ export default function Grid({ data, onSuccess }: Props) {
     <div className="main">
       <div className="wrap">
         <div className="center">
-          <div className={styles.grid_wrapper}>
-            <div
-              className={styles.grid}
-              style={{
-                gridTemplateColumns: `repeat(${data.dimensions.cols}, 48px)`,
-              }}
-            >
-              {cells.map(({ background }, i) => (
-                <Cell key={`cell-${i}`} id={i} background={background} />
-              ))}
+          <div className={`${styles.grid_wrapper} center`}>
+            <div className={styles.container}>
+              <div
+                className={styles.grid}
+                style={{
+                  gridTemplateColumns: `repeat(${data.dimensions.cols}, 48px)`,
+                }}
+              >
+                {cells.map(({ background }, i) => (
+                  <Cell key={`cell-${i}`} id={i} background={background} />
+                ))}
+              </div>
+              <Player
+                position={playerPosition}
+                move={(side: Side) => () => {
+                  sideToMove.current = side;
+                  setPromptVisible(true);
+                }}
+              />
+              {promptVisible ? (
+                <Prompt position={playerPosition} submit={promptSubmit} />
+              ) : (
+                ''
+              )}
             </div>
-            <Player
-              position={playerPosition}
-              move={(side: Side) => () => {
-                sideToMove.current = side;
-                setPromptVisible(true);
-              }}
-            />
-            {promptVisible ? (
-              <Prompt position={playerPosition} submit={promptSubmit} />
-            ) : (
-              ''
-            )}
           </div>
         </div>
       </div>
