@@ -1,19 +1,30 @@
 .grid_wrapper {
   position: relative;
+  background: url('/background-1.png');
+  width: 560px;
+  height: 560px;
+  background-size: contain;
+  align-items: center;
 
-  .grid {
-    display: grid;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    margin: auto;
+  .container {
+    position: relative;
     width: 480px;
+    height: 480px;
 
-    & > div {
-      width: 100%;
-      background: white;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-      height: 48px;
+    .grid {
+      display: grid;
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      margin: auto;
+      width: 480px;
+
+      & > div {
+        width: 100%;
+        background: white;
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+        height: 48px;
+      }
     }
   }
 }
