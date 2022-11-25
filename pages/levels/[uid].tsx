@@ -162,7 +162,7 @@ export default function Level({ rawData, uid }: Props) {
         )}
         {done ? (
           getNext(uid) ? (
-            <Link href={`/levels/${getNext(uid)}`}>Siuiente nivel {'->'}</Link>
+            <Link href={`/levels/${getNext(uid)}`}>Siguiente nivel {'->'}</Link>
           ) : (
             <Link href={`/done`}>Acabar!! {'->'}</Link>
           )
