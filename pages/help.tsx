@@ -1,10 +1,19 @@
 import styles from '@styles/help.module.scss';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Help() {
+  const router = useRouter();
   return (
     <div className={styles.help}>
-      <Link href="/">Volver al inicio</Link>
+      <a
+        onClick={(e) => {
+          e.preventDefault();
+          router.back();
+        }}
+      >
+        Volver
+      </a>
       <div className={styles.content}>
         <div className={styles.bg}></div>
         <div className={styles.card}>

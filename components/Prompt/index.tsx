@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { useEffect } from 'react';
-import { Position, CellType } from 'types';
 import styles from './styles.module.scss';
+import { CellType } from 'types';
 
 export interface Props {
   position: Position;
@@ -65,8 +65,9 @@ export default function Prompt({ position, submit }: Props) {
       <div
         className={styles.prompt}
         style={{
-          top: position[0] * 48 + 47,
-          left: position[1] * 48 + 47,
+          top: position[0] > 5 ? position[0] * 48 - 150 : position[0] * 48 + 47,
+          left:
+            position[1] > 4 ? position[1] * 48 - 400 : position[1] * 48 + 47,
         }}
       >
         <div>

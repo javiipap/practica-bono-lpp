@@ -1,18 +1,34 @@
 .success {
   display: flex;
   justify-content: center;
-  margin-top: 48px;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.403);
+  height: 100%;
+  width: 100%;
+  animation: fade-in 0.3s ease-in-out;
+  transition: 0.3s;
 
   .content {
     background: rgb(116, 241, 116);
-    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
-    padding: 24px 48px;
-    animation: fade-in 0.3s ease-in-out;
-    transition: 0.3s;
+    box-shadow: 0 0 20px 5px rgba(160, 255, 105, 0.5);
+    padding: 72px 64px;
+
+    h2 {
+      font-size: 32px;
+      letter-spacing: 0.1em;
+    }
+
+    p {
+      font-size: 18px;
+    }
   }
 
   &.exit {
     animation: fade-out 0.6s ease-in-out forwards !important;
+    transform: scale(0);
   }
 }
 

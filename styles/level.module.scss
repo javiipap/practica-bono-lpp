@@ -1,6 +1,22 @@
 .level {
   padding-top: 48px;
 
+  .help {
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 48px;
+    left: 48px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: white;
+    transition: 0.3s;
+    text-decoration: none;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.01);
+    }
+  }
+
   h1 {
     text-align: center;
   }
@@ -11,6 +27,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      text-align: right;
+
+      :nth-child(1) {
+        margin-bottom: 12px !important;
+      }
+    }
 
     a {
       font-size: large;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Position, Side } from 'types';
 import styles from './styles.module.scss';
 
 export interface Props {

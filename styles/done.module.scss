@@ -3,6 +3,22 @@
   flex-direction: column;
   align-items: center;
 
+  a {
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 48px;
+    left: 48px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    color: black;
+    transition: 0.3s;
+    text-decoration: none;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.01);
+    }
+  }
+
   .bg {
     background: url('/code-2.jpg');
     position: absolute;
@@ -22,13 +38,13 @@
     color: white;
     padding: 42px 62px;
 
-    h1,
-    p {
+    & > h1,
+    & > p {
       text-align: center;
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 42px;
       letter-spacing: 0.05em;
     }
 
@@ -39,8 +55,32 @@
     }
 
     p {
-      font-size: 14px;
+      font-size: 18px;
       margin-top: 16px;
+    }
+
+    .stats {
+      margin-top: 32px;
+
+      h2 {
+        margin-block: 12px;
+      }
+
+      .elts {
+        display: flex;
+
+        & > div {
+          position: relative;
+          margin-inline: 12px;
+
+          p {
+            color: black;
+            background: white;
+            border-radius: 4px;
+            padding: 2px 8px;
+          }
+        }
+      }
     }
   }
 }

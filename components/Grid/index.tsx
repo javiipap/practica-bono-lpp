@@ -3,9 +3,10 @@ import Cell from '@components/Cell';
 import Player from '@components/Player';
 import Prompt, { State } from '@components/Prompt';
 import { ErrorContext } from '@context/index';
-import { ICell, RawData, CellType, Side, Position } from 'types/index';
 import { sleep, getBG } from '@utils/index';
 import styles from './styles.module.scss';
+import { CellType } from 'types';
+import { convertToInteger } from '@utils/getNext';
 
 const computePos =
   (cols: number, rows: number) =>
@@ -41,18 +42,34 @@ const parseData = (data: RawData): ICell[] => {
 export interface Props {
   data: RawData;
   onSuccess: () => void;
+  uid: string;
 }
 
-export default function Grid({ data, onSuccess }: Props) {
+export default function Grid({ data, onSuccess, uid }: Props) {
   const getPos = computePos(data.dimensions.cols, data.dimensions.rows);
   const [cells, setCells] = useState(parseData(data));
   const [playerPosition, setPlayerPosition] = useState(data.start);
   const [promptVisible, setPromptVisible] = useState(false);
+  const localState = useRef<LocalStorage>();
 
   useEffect(() => {
     setCells(parseData(data));
     setPlayerPosition(data.start);
   }, [data]);
+
+  useEffect(() => {
+    if (convertToInteger(uid) === 1) {
+      localStorage.clear();
+    }
+
+    localState.current = {
+      steps: parseInt(localStorage.getItem('steps') ?? '0'),
+      iterations: parseInt(localStorage.getItem('iterations') ?? '0'),
+      deaths: parseInt(localStorage.getItem('deaths') ?? '0'),
+      hits: parseInt(localStorage.getItem('hits') ?? '0'),
+      levels: parseInt(localStorage.getItem('levels') ?? '0'),
+    };
+  }, []);
 
   const pushError = useContext(ErrorContext);
 
@@ -71,6 +88,15 @@ export default function Grid({ data, onSuccess }: Props) {
     }
   };
 
+  const saveState = () => {
+    Object.keys(localState.current!).forEach((key) => {
+      localStorage.setItem(
+        key,
+        localState.current![key as keyof LocalStorage].toString()
+      );
+    });
+  };
+
   const getTransitionState = (position: Position): CellType => {
     if (cells[getPos(position)] === undefined) {
       return CellType.outOfBound;
@@ -86,6 +112,8 @@ export default function Grid({ data, onSuccess }: Props) {
       sideToMove.current = undefined;
       return;
     }
+
+    localState.current!.steps++;
 
     // calcular traza
     const positions: { position?: Position; type: CellType }[] = [];
@@ -113,10 +141,14 @@ export default function Grid({ data, onSuccess }: Props) {
     }
 
     for (const pos of positions) {
+      localState.current!.iterations++;
+
       if (pos.type !== CellType.empty) {
         if (pos.type === state.loopCondition) break;
         switch (pos.type) {
           case CellType.wall:
+            localState.current!.hits++;
+            saveState();
             pushError('warning', 'Cuidado te has topado con una pared!!');
             return;
           case CellType.void:
@@ -129,10 +161,13 @@ export default function Grid({ data, onSuccess }: Props) {
             pushError('error', 'Cuidado con los enemigos!!');
             break;
         }
-        setPlayerPosition([0, 0]);
+        localState.current!.deaths++;
+        saveState();
+        setPlayerPosition(data.start);
         return;
       }
 
+      saveState();
       setPlayerPosition(pos.position!);
       await sleep(200);
     }
@@ -141,6 +176,8 @@ export default function Grid({ data, onSuccess }: Props) {
       JSON.stringify(positions[positions.length - 1].position) ===
       JSON.stringify(data.end)
     ) {
+      localState.current!.levels++;
+      saveState();
       onSuccess();
     }
   };

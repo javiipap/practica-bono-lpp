@@ -52,16 +52,18 @@ export default function ErrorPrompt({ children }: Props) {
       <ErrorContext.Provider value={pushError}>
         {children}
       </ErrorContext.Provider>
-      {notifications.map(({ type, text, unmount, id }) => (
-        <div
-          className={`${styles.errorPrompt} ${unmount ? styles.exit : ''}`}
-          key={`ntf-${id}_${hashCode(text)}`}
-        >
-          <p className={type === 'error' ? styles.red : styles.yellow}>
-            {text}
-          </p>
-        </div>
-      ))}
+      <div className={styles.errorWrapper}>
+        {notifications.map(({ type, text, unmount, id }) => (
+          <div
+            className={`${styles.errorPrompt} ${unmount ? styles.exit : ''}`}
+            key={`ntf-${id}_${hashCode(text)}`}
+          >
+            <p className={type === 'error' ? styles.red : styles.yellow}>
+              {text}
+            </p>
+          </div>
+        ))}
+      </div>
     </>
   );
 }
